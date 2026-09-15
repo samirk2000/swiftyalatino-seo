@@ -12,7 +12,18 @@ from datetime import date, datetime, timedelta
 from . import config, git_utils, template, site_updater, ftp_deploy
 from .deepseek_client import chat
 
-SYSTEM_PROMPT = f"""Eres un redactor SEO experto en IPTV latino para la marca SWIFTYALATINO.
+def build_system_prompt(angle: str, existing_posts: list[dict]) -> str:
+    if existing_posts:
+        links_list = "\n".join(f'- "{p["title"]}" -> {p["url"]}' for p in existing_posts)
+        internal_links_rule = (
+            "- DEBES incluir 1 o 2 enlaces internos naturales dentro del body_html (etiqueta <a href>) "
+            "hacia artículos anteriores relevantes de esta lista (usa la URL completa tal cual, texto ancla natural, "
+            "NO fuerces el enlace si ningún tema calza bien):\n" + links_list
+        )
+    else:
+        internal_links_rule = "- No hay posts anteriores todavia, no incluyas enlaces internos a otros posts."
+
+    return f"""Eres un redactor SEO experto en IPTV latino para la marca SWIFTYALATINO.
 Escribes en español neutro/mexicano, tono cercano y profesional, sin relleno.
 
 Datos oficiales que DEBES usar (nunca inventes otros precios ni contactos):
@@ -25,12 +36,17 @@ Sitio: {config.SITE_URL}
 Paises objetivo: {', '.join(config.TARGET_COUNTRIES)} (Mexico es el mercado principal).
 Keywords objetivo: {', '.join(config.TARGET_KEYWORDS)}.
 
+ANGULO OBLIGATORIO para este articulo (no te desvies de este enfoque):
+{angle}
+
 Reglas estrictas:
 - NUNCA incluyas URLs de pago (Stripe, PayPal, checkout), ni links m3u, Xtream, ni panel.
 - NUNCA inventes precios distintos a los oficiales de arriba.
-- El HTML del cuerpo debe usar <h2>, <h3>, <p>, <ul>/<ol>, <strong> (sin <html>/<head>/<body>, sin <h1>, sin CSS inline).
+- El HTML del cuerpo debe usar <h2>, <h3>, <p>, <ul>/<ol>, <strong>, <a href> (sin <html>/<head>/<body>, sin <h1>, sin CSS inline).
+- Incluye tambien al menos 1 enlace interno a la pagina principal ({config.SITE_URL}/#planes o {config.SITE_URL}/#faq) con texto ancla natural.
+{internal_links_rule}
 - Aproximadamente 1200-1600 palabras.
-- Debe mencionar naturalmente varias de las keywords objetivo.
+- Debe mencionar naturalmente varias de las keywords objetivo, y el titulo NO debe repetir literalmente el titulo de ningun post anterior de la lista.
 - Responde UNICAMENTE con un JSON valido (sin markdown, sin ```), con esta forma exacta:
 {{
   "slug": "slug-corto-en-minusculas-sin-acentos",
@@ -39,7 +55,7 @@ Reglas estrictas:
   "keywords": "keyword1, keyword2, keyword3",
   "summary": "Resumen de 1-2 frases para la tarjeta del listado del blog",
   "body_html": "<h2>...</h2><p>...</p>...",
-  "faq": [["Pregunta 1", "Respuesta 1"], ["Pregunta 2", "Respuesta 2"], ["Pregunta 3", "Respuesta 3"]]
+  "faq": [["Pregunta 1", "Respuesta 1"], ["Pregunta 2", "Respuesta 2"], ["Pregunta 3", "Respuesta 3"], ["Pregunta 4", "Respuesta 4"], ["Pregunta 5", "Respuesta 5"]]
 }}
 """
 
@@ -69,6 +85,29 @@ def extract_json(raw: str) -> dict:
     return json.loads(raw[start : end + 1])
 
 
+def get_existing_posts() -> list[dict]:
+    """Lista {title, url} de posts ya publicados, leyendo el <title> de cada HTML."""
+    posts = []
+    if not config.BLOG_DIR.exists():
+        return posts
+    for f in sorted(config.BLOG_DIR.glob("*.html")):
+        if f.name == "index.html":
+            continue
+        try:
+            text = f.read_text(encoding="utf-8", errors="ignore")
+            start = text.find("<title>")
+            end = text.find("</title>")
+            title = text[start + 7 : end].replace(" | SWIFTYALATINO", "") if start != -1 and end != -1 else f.stem
+        except Exception:
+            title = f.stem
+        posts.append({"title": title, "url": f"{config.SITE_URL}/blog/{f.name}"})
+    return posts
+
+
+def pick_angle(post_count: int) -> str:
+    return config.CONTENT_ANGLES[post_count % len(config.CONTENT_ANGLES)]
+
+
 def unique_slug(base_slug: str) -> str:
     slug = base_slug
     n = 2
@@ -79,21 +118,26 @@ def unique_slug(base_slug: str) -> str:
 
 
 def main():
+    existing_posts = get_existing_posts()
+    angle = pick_angle(len(existing_posts))
+    system_prompt = build_system_prompt(angle, existing_posts)
+    print(f"Angulo elegido ({len(existing_posts)} posts previos): {angle[:80]}...")
+
     trends_context = get_trends_context()
     if trends_context:
         user_prompt = (
             "Usa como inspiracion (si aplica) estas tendencias recientes de futbol/entretenimiento "
-            "para elegir el angulo del articulo. Si no son relevantes para IPTV, ignoralas y elige "
-            "un tema evergreen sobre IPTV latino:\n\n" + trends_context
+            "para elegir un tema concreto DENTRO del angulo obligatorio ya definido. Si no son relevantes, "
+            "ignoralas y elige un tema evergreen dentro de ese mismo angulo:\n\n" + trends_context
         )
     else:
         user_prompt = (
-            "No hay tendencias recientes disponibles. Elige un tema evergreen y original sobre IPTV "
-            "latino, futbol en vivo, comparativas de planes, o guias por pais, que NO se haya cubierto "
-            "ya de forma obvia (evita repetir literalmente articulos anteriores de la carpeta blog/)."
+            "No hay tendencias recientes disponibles. Elige un tema evergreen y original DENTRO del "
+            "angulo obligatorio ya definido, que NO se haya cubierto ya de forma obvia por los posts "
+            "anteriores listados arriba."
         )
 
-    raw = chat(SYSTEM_PROMPT, user_prompt)
+    raw = chat(system_prompt, user_prompt)
     data = extract_json(raw)
 
     slug = unique_slug(slugify(data["slug"]) or slugify(data["title"]))

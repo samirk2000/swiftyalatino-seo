@@ -44,9 +44,37 @@ TARGET_KEYWORDS = [
     "iptv peru",
     "comprar iptv",
     "ver futbol en vivo",
+    "iptv latino usa",
+    "iptv para television",
+    "iptv sin cortes",
+    "canales latinos en vivo",
+    "iptv mexico precio",
+    "mejor iptv 2026",
+    "iptv legal o pirata",
+    "iptv para roku firestick",
+    "ver liga mx en vivo",
+    "ver champions league en vivo",
+    "iptv barato buena calidad",
 ]
 
 TARGET_COUNTRIES = ["Mexico", "Estados Unidos", "Canada", "España", "Colombia", "Peru", "Chile", "Argentina", "Ecuador", "Panama"]
+
+# Rotacion de formato/angulo de contenido para que el bot no repita siempre
+# la misma estructura de articulo. write_post.py elige uno por indice.
+CONTENT_ANGLES = [
+    "Guia completa enfocada en UN pais especifico de TARGET_COUNTRIES (elige el que menos se haya cubierto): "
+    "precios en su contexto, como contratar, dispositivos compatibles, y por que conviene vs. cable/streaming tradicional.",
+    "Comparativa: SWIFTYALATINO (LATINO PREMIUM y MEGA TOTAL) vs. streaming tradicional (Netflix/cable) en costo, "
+    "cantidad de canales y contenido deportivo en vivo.",
+    "Listado tipo 'Top razones' o checklist para elegir un buen servicio de IPTV latino, con enfoque en calidad, "
+    "estabilidad de señal, soporte y variedad de canales/peliculas/series.",
+    "Guia de futbol en vivo: como ver ligas y torneos (Liga MX, Champions, Premier, seleccion nacional, etc.) "
+    "sin cortes, mencionando el catalogo deportivo de SWIFTYALATINO.",
+    "Guia tecnica practica: como configurar/usar IPTV en distintos dispositivos (Smart TV, Firestick, celular, "
+    "TV Box), sin nunca mencionar apps de terceros, m3u ni paneles.",
+    "Comparativa de planes propios: LATINO PREMIUM vs MEGA TOTAL, para quien es cada uno segun numero de "
+    "canales, peliculas/series y presupuesto.",
+]
 
 REPO_DIR = BASE_DIR
 BLOG_DIR = BASE_DIR / "blog"
