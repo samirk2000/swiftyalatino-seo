@@ -1,0 +1,54 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Cuál es el mejor IPTV para México?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "SWIFTYALATINO es el mejor IPTV para México porque ofrece más de 3000 canales en vivo, 12000 películas y 5000 series con soporte por WhatsApp y activación inmediata."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿SWIFTYALATINO funciona para iptv mexicanos en USA?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí, nuestro servicio funciona perfectamente para mexicanos e hispanos que viven en Estados Unidos, con canales de México, deportes y contenido latino en HD/FHD."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Tienen el mejor IPTV para España?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí, contamos con canales españoles, latinos y deportivos para toda España, con excelente estabilidad y soporte en español."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cómo contrato IPTV en Colombia o Perú?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Puedes contratar tu plan IPTV Colombia o IPTV Perú directamente por WhatsApp, elige tu plan y método de pago y activamos tu cuenta en minutos."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cómo puedo comprar IPTV con SWIFTYALATINO?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Para comprar IPTV solo debes elegir tu plan (LATINO PREMIUM o MEGA TOTAL), escribirnos por WhatsApp y pagar por transferencia, depósito OXXO, PayPal o Stripe (link privado enviado por WhatsApp)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué métodos de pago aceptan?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Aceptamos transferencia bancaria, depósito en OXXO, PayPal y un link privado de Stripe que se envía únicamente por WhatsApp tras confirmar tu pedido."
+      }
+    }
+  ]
+}

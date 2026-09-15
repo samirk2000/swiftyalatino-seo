@@ -1,0 +1,15 @@
+# Secretos y credenciales - NUNCA subir
+.env
+.env.*
+*.pem
+*.key
+credentials*.json
+ftp-credentials*
+*password*
+
+# Archivos temporales del sistema
+Thumbs.db
+.DS_Store
+
+# Node (por si en el futuro se agregan herramientas build)
+node_modules/
