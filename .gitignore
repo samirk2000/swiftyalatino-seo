@@ -13,3 +13,8 @@ Thumbs.db
 
 # Node (por si en el futuro se agregan herramientas build)
 node_modules/
+
+# Python (bot de automatizacion)
+venv/
+__pycache__/
+*.pyc
