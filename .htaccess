@@ -39,3 +39,23 @@
 
 # LiteSpeed Cache (si el hosting corre LiteSpeed, se integra automáticamente vía plugin en WP;
 # para sitio estático, LSCache respeta estos headers de expiración)
+
+# Bloquear acceso público a archivos y carpetas internas del proyecto
+# (quedan en el repo para la automatización de Git Deploy, pero no deben servirse por HTTP)
+<IfModule mod_rewrite.c>
+  RewriteRule ^(README\.md|\.cursorrules|planes\.json|\.gitignore)$ - [F,L]
+  RewriteRule ^(seo|scripts|wordpress)(/|$) - [F,L]
+</IfModule>
+
+# Bloquear archivos ocultos y de control de versiones (.git, .env, etc.)
+<IfModule mod_authz_core.c>
+  <FilesMatch "^\.">
+    Require all denied
+  </FilesMatch>
+</IfModule>
+<IfModule !mod_authz_core.c>
+  <FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+  </FilesMatch>
+</IfModule>
