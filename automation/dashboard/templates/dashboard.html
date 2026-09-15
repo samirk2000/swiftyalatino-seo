@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+<header>
+  <h1>📊 Panel del Bot — SWIFTYALATINO</h1>
+  <a href="{{ url_for('logout') }}" class="muted">Cerrar sesión</a>
+</header>
+
+<div class="card">
+  <h2 style="margin-top:0;font-size:1.05rem">Acciones manuales</h2>
+  <form method="post" action="{{ url_for('run_trends') }}" style="display:inline">
+    <button class="btn" {% if trends_running %}disabled{% endif %}>
+      {% if trends_running %}Buscando tendencias...{% else %}🔍 Buscar tendencias ahora{% endif %}
+    </button>
+  </form>
+  <form method="post" action="{{ url_for('run_post') }}" style="display:inline;margin-left:10px">
+    <button class="btn" {% if post_running %}disabled{% endif %}>
+      {% if post_running %}Generando post...{% else %}✍️ Generar post ahora{% endif %}
+    </button>
+  </form>
+  <p class="muted" style="margin-top:12px">El cron ya corre solo: lunes 8am (tendencias) y martes/viernes 9am (post nuevo). Estos botones son para pruebas manuales.</p>
+</div>
+
+<div class="card">
+  <h2 style="margin-top:0;font-size:1.05rem">Posts publicados ({{ posts|length }})</h2>
+  <table>
+    <thead><tr><th>Título</th><th>Fecha</th><th>Link</th></tr></thead>
+    <tbody>
+      {% for p in posts %}
+      <tr>
+        <td>{{ p.title }}</td>
+        <td class="muted">{{ p.modified }}</td>
+        <td><a href="{{ p.url }}" target="_blank">Ver en vivo →</a></td>
+      </tr>
+      {% else %}
+      <tr><td colspan="3" class="muted">Todavía no hay posts generados por el bot.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="card">
+  <h2 style="margin-top:0;font-size:1.05rem">Log — generación de posts <span class="badge {% if post_running %}running{% endif %}">{% if post_running %}en curso{% else %}inactivo{% endif %}</span></h2>
+  <pre>{{ post_log }}</pre>
+</div>
+
+<div class="card">
+  <h2 style="margin-top:0;font-size:1.05rem">Log — tendencias <span class="badge {% if trends_running %}running{% endif %}">{% if trends_running %}en curso{% else %}inactivo{% endif %}</span></h2>
+  <pre>{{ trends_log }}</pre>
+</div>
+{% endblock %}

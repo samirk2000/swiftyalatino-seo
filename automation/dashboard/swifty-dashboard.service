@@ -1,0 +1,16 @@
+[Unit]
+Description=Panel del bot de blog SWIFTYALATINO (Flask + gunicorn)
+After=network.target
+
+[Service]
+Type=simple
+User=blogbot
+Group=blogbot
+WorkingDirectory=/opt/swifty-blog-bot
+EnvironmentFile=/opt/swifty-blog-bot/.env
+ExecStart=/opt/swifty-blog-bot/venv/bin/gunicorn -w 2 -b 127.0.0.1:8899 automation.dashboard.app:app
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

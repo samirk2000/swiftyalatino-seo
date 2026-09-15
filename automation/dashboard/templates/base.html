@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}Panel SWIFTYALATINO Bot{% endblock %}</title>
+<style>
+  :root{--bg:#0b0f19;--card:#1a2233;--primary:#25D366;--text:#f4f6fb;--muted:#a9b2c3;--border:rgba(255,255,255,.08)}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
+  .container{max-width:960px;margin:0 auto;padding:24px}
+  header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+  h1{font-size:1.4rem;margin:0}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:20px}
+  a{color:var(--primary)}
+  .btn{display:inline-block;background:var(--primary);color:#06210f;border:none;padding:10px 18px;border-radius:999px;font-weight:700;cursor:pointer;text-decoration:none;font-size:0.9rem}
+  .btn:disabled{opacity:0.5;cursor:not-allowed}
+  table{width:100%;border-collapse:collapse}
+  th,td{text-align:left;padding:8px;border-bottom:1px solid var(--border);font-size:0.9rem}
+  pre{background:#0006;padding:12px;border-radius:8px;overflow:auto;max-height:280px;font-size:0.78rem;color:var(--muted)}
+  .flash{background:#25436b;padding:10px 14px;border-radius:8px;margin-bottom:16px;font-size:0.9rem}
+  .muted{color:var(--muted);font-size:0.85rem}
+  input{padding:10px;border-radius:8px;border:1px solid var(--border);background:#0003;color:var(--text);width:100%;margin-bottom:12px}
+  .badge{font-size:0.72rem;padding:3px 8px;border-radius:999px;background:#25436b}
+  .badge.running{background:#8a5a00}
+</style>
+</head>
+<body>
+<div class="container">
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}{% for m in messages %}<div class="flash">{{ m }}</div>{% endfor %}{% endif %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+</div>
+</body>
+</html>
