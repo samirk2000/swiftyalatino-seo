@@ -4,10 +4,11 @@ entretenimiento) para Mexico, España y USA usando pytrends (gratis, sin API
 key), y guarda un resumen en seo/trends-notes.md para que write_post.py lo
 use como inspiracion el martes/viernes.
 """
+import traceback
 from datetime import date, datetime
 from pytrends.request import TrendReq
 
-from . import config, git_utils
+from . import config, git_utils, notify
 
 SEED_TERMS = ["futbol", "liga mx", "champions league", "iptv", "ver futbol en vivo"]
 GEOS = {"MX": "Mexico", "ES": "España", "US": "Estados Unidos (hispanos)"}
@@ -28,7 +29,7 @@ def fetch_trends_for_geo(pytrends: TrendReq, geo: str) -> list[str]:
         return []
 
 
-def main():
+def run():
     pytrends = TrendReq(hl="es-419", tz=360)
     lines = [f"# Notas de tendencias — semana del {date.today().isoformat()}", ""]
 
@@ -55,6 +56,20 @@ def main():
         paths=["seo/trends-notes.md"],
     )
     print("Push realizado." if changed else "Sin cambios para pushear.")
+    return any_data
+
+
+def main():
+    try:
+        any_data = run()
+    except Exception:
+        error_trace = traceback.format_exc()
+        print(error_trace)
+        notify.notify_failure("Fallo al buscar tendencias de Google Trends", error_trace[-500:])
+        raise
+    else:
+        detail = "con datos reales de Google Trends" if any_data else "sin datos suficientes, se usara tema evergreen"
+        notify.notify_success("Tendencias semanales actualizadas", detail)
 
 
 if __name__ == "__main__":

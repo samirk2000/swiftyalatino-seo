@@ -16,6 +16,8 @@ FTP_HOST = os.getenv("FTP_HOST", "")
 FTP_USER = os.getenv("FTP_USER", "")
 FTP_PASS = os.getenv("FTP_PASS", "")
 FTP_PORT = int(os.getenv("FTP_PORT", "21"))
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
+TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "")
 
 # --- Datos del negocio (definidos en .cursorrules, no deben cambiar solos) ---
 BUSINESS_NAME = "SWIFTYALATINO"

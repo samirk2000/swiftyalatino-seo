@@ -6,10 +6,14 @@ humana ni PRs.
 """
 import json
 import re
+import time
+import traceback
 import unicodedata
 from datetime import date, datetime, timedelta
 
-from . import config, git_utils, template, site_updater, ftp_deploy
+import requests
+
+from . import config, git_utils, template, site_updater, ftp_deploy, notify
 from .deepseek_client import chat
 
 def build_system_prompt(angle: str, existing_posts: list[dict]) -> str:
@@ -117,7 +121,22 @@ def unique_slug(base_slug: str) -> str:
     return slug
 
 
-def main():
+def verify_live(url: str, retries: int = 3, wait_seconds: int = 5) -> bool:
+    """Chequea que la URL responda 200. Reintenta unas veces (CDN/propagacion)."""
+    for attempt in range(1, retries + 1):
+        try:
+            resp = requests.get(url, timeout=15)
+            if resp.status_code == 200:
+                return True
+            print(f"Verificacion intento {attempt}: HTTP {resp.status_code}")
+        except Exception as e:
+            print(f"Verificacion intento {attempt} fallo: {e}")
+        time.sleep(wait_seconds)
+    return False
+
+
+def run() -> str:
+    """Genera y publica un post. Devuelve la URL publicada. Lanza excepcion si algo falla."""
     existing_posts = get_existing_posts()
     angle = pick_angle(len(existing_posts))
     system_prompt = build_system_prompt(angle, existing_posts)
@@ -171,15 +190,46 @@ def main():
     )
     print("Push realizado." if changed else "Sin cambios para pushear (raro).")
 
+    deploy_files = {
+        post_path: f"blog/{slug}.html",
+        config.BLOG_INDEX_PATH: "blog/index.html",
+        config.SITEMAP_PATH: "sitemap.xml",
+    }
+
     # Deploy directo a Hostinger (no depender del Git Deploy, que ha fallado antes)
-    ftp_deploy.deploy(
-        {
-            post_path: f"blog/{slug}.html",
-            config.BLOG_INDEX_PATH: "blog/index.html",
-            config.SITEMAP_PATH: "sitemap.xml",
-        }
-    )
-    print(f"Publicado en vivo: {config.SITE_URL}/blog/{slug}.html")
+    ftp_deploy.deploy(deploy_files)
+
+    live_url = f"{config.SITE_URL}/blog/{slug}.html"
+    print(f"Verificando que el post ya este en vivo: {live_url}")
+    if not verify_live(live_url):
+        print("La verificacion fallo, reintentando el deploy por FTP una vez mas...")
+        ftp_deploy.deploy(deploy_files)
+        if not verify_live(live_url, retries=2):
+            raise RuntimeError(
+                f"El post se genero y se hizo push a git, pero no responde 200 en {live_url} "
+                "tras reintentar el deploy por FTP. Revisar Hostinger manualmente."
+            )
+
+    print(f"Publicado y verificado en vivo: {live_url}")
+    return live_url
+
+
+def main():
+    try:
+        live_url = run()
+    except Exception:
+        error_trace = traceback.format_exc()
+        print(error_trace)
+        notify.notify_failure(
+            "Fallo al generar/publicar el post de blog",
+            error_trace[-500:],
+        )
+        raise
+    else:
+        notify.notify_success(
+            "Nuevo post de blog publicado",
+            f"{live_url}",
+        )
 
 
 if __name__ == "__main__":
