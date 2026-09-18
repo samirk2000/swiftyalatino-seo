@@ -13,7 +13,7 @@ from datetime import date, datetime, timedelta
 
 import requests
 
-from . import config, git_utils, template, site_updater, ftp_deploy, notify
+from . import config, git_utils, template, site_updater, ftp_deploy, notify, og_image, indexing
 from .deepseek_client import chat
 
 def build_system_prompt(angle: str, existing_posts: list[dict]) -> str:
@@ -226,6 +226,9 @@ def run() -> str:
     slug = unique_slug(slugify(data["slug"]) or slugify(data["title"]))
     published = date.today()
 
+    image_path = og_image.generate(slug, data["title"])
+    image_url = f"{config.SITE_URL}/assets/img/blog/{slug}.jpg"
+
     post_html = template.render_post(
         slug=slug,
         title=data["title"],
@@ -234,6 +237,7 @@ def run() -> str:
         body_html=data["body_html"],
         faq_items=[tuple(item) for item in data["faq"]],
         published_date=published,
+        image_url=image_url,
     )
 
     config.BLOG_DIR.mkdir(parents=True, exist_ok=True)
@@ -250,6 +254,8 @@ def run() -> str:
             f"blog/{slug}.html",
             "blog/index.html",
             "sitemap.xml",
+            f"assets/img/blog/{slug}.jpg",
+            f"{config.INDEXNOW_KEY}.txt",
         ],
     )
     print("Push realizado." if changed else "Sin cambios para pushear (raro).")
@@ -258,6 +264,8 @@ def run() -> str:
         post_path: f"blog/{slug}.html",
         config.BLOG_INDEX_PATH: "blog/index.html",
         config.SITEMAP_PATH: "sitemap.xml",
+        image_path: f"assets/img/blog/{slug}.jpg",
+        config.BASE_DIR / f"{config.INDEXNOW_KEY}.txt": f"{config.INDEXNOW_KEY}.txt",
     }
 
     # Deploy directo a Hostinger (no depender del Git Deploy, que ha fallado antes)
@@ -275,6 +283,8 @@ def run() -> str:
             )
 
     print(f"Publicado y verificado en vivo: {live_url}")
+    index_results = indexing.submit_url(live_url)
+    print(f"Indexacion: {index_results}")
     return live_url
 
 

@@ -9,8 +9,10 @@ def add_post_to_blog_index(slug: str, title: str, summary: str, published_date: 
     date_str = published_date.strftime("%Y-%m-%d")
     date_human = published_date.strftime("%d de %B de %Y")
 
+    thumb = f'/assets/img/blog/{slug}.jpg'
     new_card = (
         f'      <article class="card">\n'
+        f'        <a href="/blog/{slug}.html"><img class="card-thumb" src="{thumb}" alt="{title}" width="600" height="315" loading="lazy"></a>\n'
         f'        <time class="post-date" datetime="{date_str}">{date_human}</time>\n'
         f'        <h3><a href="/blog/{slug}.html">{title}</a></h3>\n'
         f'        <p>{summary}</p>\n'

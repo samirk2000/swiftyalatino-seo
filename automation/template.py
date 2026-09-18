@@ -88,12 +88,20 @@ def render_post(
     body_html: str,
     faq_items: list[tuple[str, str]],
     published_date: date | None = None,
+    image_url: str | None = None,
 ) -> str:
     published_date = published_date or date.today()
     date_str = published_date.strftime("%Y-%m-%d")
     date_human = published_date.strftime("%d de %B de %Y")
     url = f"{config.SITE_URL}/blog/{slug}.html"
     faq_json = build_faq_schema(faq_items)
+    if not image_url:
+        image_url = f"{config.SITE_URL}/assets/img/og-swiftyalatino.jpg"
+    image_meta = f'''<meta property="og:image" content="{image_url}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="{image_url}">'''
+    hero_html = f'<img class="post-hero" src="{image_url}" alt="{title}" width="1200" height="630" loading="eager">'
 
     article_schema = f"""{{
   "@context": "https://schema.org",
@@ -108,7 +116,8 @@ def render_post(
     "@type": "Organization", "name": "SWIFTYALATINO", "url": "{config.SITE_URL}",
     "logo": {{"@type": "ImageObject", "url": "{config.SITE_URL}/assets/img/logo.png"}}
   }},
-  "mainEntityOfPage": {{"@type": "WebPage", "@id": "{url}"}}
+  "mainEntityOfPage": {{"@type": "WebPage", "@id": "{url}"}},
+  "image": "{image_url}"
 }}""".replace("'", "\"")
 
     return f"""<!DOCTYPE html>
@@ -130,6 +139,7 @@ def render_post(
 <meta property="og:description" content="{meta_description}">
 <meta property="og:url" content="{url}">
 <meta property="og:site_name" content="SWIFTYALATINO">
+{image_meta}
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{title}">
 <meta name="twitter:description" content="{meta_description}">
@@ -148,6 +158,7 @@ def render_post(
 
 <main class="section">
   <article class="container blog-post">
+    {hero_html}
     <h1>{title}</h1>
     <p class="post-meta">{date_human} &middot; Guia IPTV latino</p>
 
