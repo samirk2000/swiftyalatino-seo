@@ -78,14 +78,28 @@ def list_posts():
                     title = text[start + 7:end].replace(" | SWIFTYALATINO", "")
             except Exception:
                 pass
+            thumb = config.BASE_DIR / "assets" / "img" / "blog" / f"{f.stem}.jpg"
             posts.append({
                 "slug": f.stem,
                 "title": title,
                 "url": f"{config.SITE_URL}/blog/{f.name}",
                 "modified": datetime.fromtimestamp(f.stat().st_mtime).strftime("%Y-%m-%d %H:%M"),
+                "has_og": thumb.exists(),
+                "thumb_url": f"{config.SITE_URL}/assets/img/blog/{f.stem}.jpg" if thumb.exists() else "",
             })
     return posts
 
+
+def last_run_info(path: Path) -> str:
+    if not path.exists():
+        return "nunca"
+    age = datetime.now() - datetime.fromtimestamp(path.stat().st_mtime)
+    hours = int(age.total_seconds() // 3600)
+    if hours < 1:
+        return "hace menos de 1h"
+    if hours < 48:
+        return f"hace {hours}h"
+    return f"hace {hours // 24}d"
 
 def tail_log(path: Path, n: int = 40) -> str:
     if not path.exists():
@@ -111,6 +125,9 @@ def dashboard():
         post_running=LOCK_POST.exists(),
         trends_running=LOCK_TRENDS.exists(),
         site_url=config.SITE_URL,
+        last_post_run=last_run_info(LOGS_DIR / "write_post.log"),
+        last_trends_run=last_run_info(LOGS_DIR / "trends.log"),
+        og_ready=sum(1 for p in posts if p.get("has_og")),
     )
 
 

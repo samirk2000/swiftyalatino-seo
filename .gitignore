@@ -18,3 +18,6 @@ node_modules/
 venv/
 __pycache__/
 *.pyc
+
+# Imagenes OG generadas por el bot (se suben por FTP; se versionan solo cuando el bot las publica)
+# assets/img/blog/*.jpg

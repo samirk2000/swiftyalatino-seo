@@ -127,6 +127,22 @@ def validate_post(data: dict, existing_posts: list[dict]) -> list[str]:
         if p["title"].strip().lower() == title_norm:
             errors.append(f"El titulo es identico a un post existente: '{p['title']}'.")
 
+    # Blindaje: nada de listas, paneles ni links de pago en el contenido generado
+    forbidden = [
+        (r"\.m3u8?\b", "enlace .m3u/.m3u8"),
+        (r"xtream", "mencion a Xtream"),
+        (r"get\.php\?", "URL de panel get.php"),
+        (r"player_api", "URL de player_api"),
+        (r"buy\.stripe\.com", "link de Stripe"),
+        (r"checkout\.stripe\.com", "link de Stripe checkout"),
+        (r"paypal\.com/(cgi-bin|paypalme|ncp)", "link de PayPal"),
+        (r"https?://[^\s\"']+\.(m3u8?|ts)\b", "URL de stream directo"),
+    ]
+    blob = f"{data.get('body_html','')} {data.get('summary','')} {data.get('meta_description','')}".lower()
+    for pattern, label in forbidden:
+        if re.search(pattern, blob, re.IGNORECASE):
+            errors.append(f"Contenido prohibido detectado ({label}). Eliminalo por completo.")
+
     return errors
 
 
@@ -229,6 +245,12 @@ def run() -> str:
     image_path = og_image.generate(slug, data["title"])
     image_url = f"{config.SITE_URL}/assets/img/blog/{slug}.jpg"
 
+    related = [
+        {"title": p["title"], "url": p["url"]}
+        for p in existing_posts
+        if p.get("url") and slug not in p.get("url", "")
+    ][-3:]
+
     post_html = template.render_post(
         slug=slug,
         title=data["title"],
@@ -238,6 +260,7 @@ def run() -> str:
         faq_items=[tuple(item) for item in data["faq"]],
         published_date=published,
         image_url=image_url,
+        related_posts=related,
     )
 
     config.BLOG_DIR.mkdir(parents=True, exist_ok=True)
@@ -285,12 +308,12 @@ def run() -> str:
     print(f"Publicado y verificado en vivo: {live_url}")
     index_results = indexing.submit_url(live_url)
     print(f"Indexacion: {index_results}")
-    return live_url
+    return live_url, index_results
 
 
 def main():
     try:
-        live_url = run()
+        live_url, index_results = run()
     except Exception:
         error_trace = traceback.format_exc()
         print(error_trace)
@@ -300,9 +323,14 @@ def main():
         )
         raise
     else:
+        index_ok = any(
+            str(v).startswith("HTTP 200") or str(v).startswith("HTTP 202") or v == "ok"
+            for v in (index_results or {}).values()
+        )
+        index_line = "IndexNow OK" if index_ok else f"IndexNow: {index_results}"
         notify.notify_success(
             "Nuevo post de blog publicado",
-            f"{live_url}",
+            f"{live_url}\n🖼 Imagen OG lista\n📡 {index_line}",
         )
 
 

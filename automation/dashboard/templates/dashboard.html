@@ -6,6 +6,15 @@
 </header>
 
 <div class="card">
+  <h2 style="margin-top:0;font-size:1.05rem">Estado rápido</h2>
+  <p class="muted" style="margin:0">
+    Último post: <strong>{{ last_post_run }}</strong> ·
+    Últimas tendencias: <strong>{{ last_trends_run }}</strong> ·
+    Posts con imagen OG: <strong>{{ og_ready }}/{{ posts|length }}</strong>
+  </p>
+</div>
+
+<div class="card">
   <h2 style="margin-top:0;font-size:1.05rem">Acciones manuales</h2>
   <form method="post" action="{{ url_for('run_trends') }}" style="display:inline">
     <button class="btn" {% if trends_running %}disabled{% endif %}>
@@ -23,16 +32,18 @@
 <div class="card">
   <h2 style="margin-top:0;font-size:1.05rem">Posts publicados ({{ posts|length }})</h2>
   <table>
-    <thead><tr><th>Título</th><th>Fecha</th><th>Link</th></tr></thead>
+    <thead><tr><th></th><th>Título</th><th>Fecha</th><th>OG</th><th>Link</th></tr></thead>
     <tbody>
       {% for p in posts %}
       <tr>
+        <td>{% if p.thumb_url %}<img src="{{ p.thumb_url }}" alt="" width="64" height="34" style="object-fit:cover;border-radius:4px">{% endif %}</td>
         <td>{{ p.title }}</td>
         <td class="muted">{{ p.modified }}</td>
+        <td>{% if p.has_og %}✅{% else %}—{% endif %}</td>
         <td><a href="{{ p.url }}" target="_blank">Ver en vivo →</a></td>
       </tr>
       {% else %}
-      <tr><td colspan="3" class="muted">Todavía no hay posts generados por el bot.</td></tr>
+      <tr><td colspan="5" class="muted">Todavía no hay posts generados por el bot.</td></tr>
       {% endfor %}
     </tbody>
   </table>

@@ -266,3 +266,13 @@ h2{font-size:clamp(1.5rem,3vw,2.2rem);text-align:center;margin-bottom:8px}
   70%{box-shadow:0 0 0 14px rgba(37,211,102,0)}
   100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}
 }
+
+/* Breadcrumbs + related posts */
+.breadcrumbs{font-size:0.85rem;color:var(--text-muted);margin:0 0 16px}
+.breadcrumbs a{color:var(--primary);text-decoration:none}
+.related-posts{margin:36px 0 8px;padding:20px;border:1px solid var(--border);border-radius:var(--radius);background:var(--card)}
+.related-posts h2{text-align:left;font-size:1.15rem;margin:0 0 12px}
+.related-posts ul{margin:0;padding-left:18px;color:var(--text-muted)}
+.related-posts li{margin-bottom:8px}
+.related-posts a{color:var(--primary)}
+.post-hero{width:100%;height:auto;max-height:380px;object-fit:cover;border-radius:var(--radius);margin:0 0 22px;display:block;border:1px solid var(--border)}

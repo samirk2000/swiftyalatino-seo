@@ -1,5 +1,6 @@
 """Genera el HTML final de un post de blog, con el mismo header/footer/CSS/JS
 y tracking (GA4 + Meta Pixel) que el resto del sitio."""
+import re
 from datetime import date
 from . import config
 
@@ -89,6 +90,7 @@ def render_post(
     faq_items: list[tuple[str, str]],
     published_date: date | None = None,
     image_url: str | None = None,
+    related_posts: list[dict] | None = None,
 ) -> str:
     published_date = published_date or date.today()
     date_str = published_date.strftime("%Y-%m-%d")
@@ -102,6 +104,35 @@ def render_post(
 <meta property="og:image:height" content="630">
 <meta name="twitter:image" content="{image_url}">'''
     hero_html = f'<img class="post-hero" src="{image_url}" alt="{title}" width="1200" height="630" loading="eager">'
+
+    # Tiempo de lectura aproximado
+    word_count = len(re.sub(r"<[^>]+>", " ", body_html).split())
+    read_mins = max(1, round(word_count / 200))
+
+    # Related posts HTML
+    related_html = ""
+    if related_posts:
+        items = []
+        for p in related_posts[:3]:
+            items.append(
+                f'<li><a href="{p["url"]}">{p["title"]}</a></li>'
+            )
+        related_html = (
+            '<aside class="related-posts">'
+            "<h2>También te puede interesar</h2>"
+            f'<ul>{"".join(items)}</ul>'
+            "</aside>"
+        )
+
+    breadcrumb_schema = f"""{{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {{"@type": "ListItem", "position": 1, "name": "Inicio", "item": "{config.SITE_URL}/"}},
+    {{"@type": "ListItem", "position": 2, "name": "Blog", "item": "{config.SITE_URL}/blog/"}},
+    {{"@type": "ListItem", "position": 3, "name": {title!r}, "item": "{url}"}}
+  ]
+}}""".replace("'", '"')
 
     article_schema = f"""{{
   "@context": "https://schema.org",
@@ -117,7 +148,8 @@ def render_post(
     "logo": {{"@type": "ImageObject", "url": "{config.SITE_URL}/assets/img/logo.png"}}
   }},
   "mainEntityOfPage": {{"@type": "WebPage", "@id": "{url}"}},
-  "image": "{image_url}"
+  "image": "{image_url}",
+  "wordCount": {word_count}
 }}""".replace("'", "\"")
 
     return f"""<!DOCTYPE html>
@@ -151,6 +183,10 @@ def render_post(
 <script type="application/ld+json">
 {faq_json}
 </script>
+
+<script type="application/ld+json">
+{breadcrumb_schema}
+</script>
 {HEAD_TRACKING}
 </head>
 <body>
@@ -158,11 +194,16 @@ def render_post(
 
 <main class="section">
   <article class="container blog-post">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Inicio</a> / <a href="/blog/">Blog</a> / <span>{title[:48]}{'…' if len(title) > 48 else ''}</span>
+    </nav>
     {hero_html}
     <h1>{title}</h1>
-    <p class="post-meta">{date_human} &middot; Guia IPTV latino</p>
+    <p class="post-meta">{date_human} &middot; {read_mins} min de lectura &middot; Guia IPTV latino</p>
 
 {body_html}
+
+    {related_html}
 
     <div class="blog-cta">
       <p>&iquest;Listo para disfrutar SWIFTYALATINO? Escribenos y te armamos el plan segun tu pais.</p>
