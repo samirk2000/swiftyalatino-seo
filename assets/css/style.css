@@ -36,9 +36,11 @@ html.light-theme .faq-list details{
 }
 
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;overflow-x:hidden;max-width:100%}
 body{
   margin:0;
+  overflow-x:hidden;
+  max-width:100%;
   font-family:'Poppins',Arial,Helvetica,sans-serif;
   background:var(--bg);
   color:var(--text);
@@ -68,9 +70,10 @@ h2{font-size:clamp(1.5rem,3vw,2.2rem);text-align:center;margin-bottom:8px}
 .site-logo{height:44px;width:auto;display:block}
 .hero-logo{height:90px;width:auto;margin:0 auto 20px;display:block}
 .footer-logo{height:56px;width:auto;margin:0 auto 14px;display:block;opacity:0.9}
-.main-nav{display:flex;gap:20px}
+.main-nav{display:none;gap:20px}
 .main-nav a{color:var(--text-muted);font-weight:500}
 .main-nav a:hover{color:var(--text)}
+@media(min-width:640px){.main-nav{display:flex}}
 .header-tools{display:flex;align-items:center;gap:10px}
 .icon-btn{
   background:transparent;border:1px solid var(--border);color:var(--text);
