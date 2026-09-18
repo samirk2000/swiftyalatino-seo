@@ -89,6 +89,47 @@ def extract_json(raw: str) -> dict:
     return json.loads(raw[start : end + 1])
 
 
+def strip_html(html: str) -> str:
+    return re.sub(r"<[^>]+>", " ", html)
+
+
+def validate_post(data: dict, existing_posts: list[dict]) -> list[str]:
+    """Devuelve una lista de errores (vacia = post valido). No lanza excepciones."""
+    errors = []
+
+    for field in ("slug", "title", "meta_description", "keywords", "summary", "body_html", "faq"):
+        if not data.get(field):
+            errors.append(f"Falta el campo '{field}' o esta vacio.")
+    if errors:
+        return errors  # sin estos campos no se puede validar el resto
+
+    word_count = len(strip_html(data["body_html"]).split())
+    if word_count < 900:
+        errors.append(f"El articulo tiene solo {word_count} palabras (minimo esperado: 900).")
+
+    meta_len = len(data["meta_description"])
+    if not (100 <= meta_len <= 175):
+        errors.append(f"meta_description tiene {meta_len} caracteres (debe estar entre 100 y 175).")
+
+    if "<a href" not in data["body_html"]:
+        errors.append("El body_html no incluye ningun enlace interno (<a href>), es obligatorio.")
+
+    if not isinstance(data["faq"], list) or len(data["faq"]) < 3:
+        errors.append("Debe incluir al menos 3 preguntas de FAQ.")
+    else:
+        for item in data["faq"]:
+            if not isinstance(item, list) or len(item) != 2 or not item[0].strip() or not item[1].strip():
+                errors.append("Alguna pregunta/respuesta del FAQ esta vacia o mal formada.")
+                break
+
+    title_norm = data["title"].strip().lower()
+    for p in existing_posts:
+        if p["title"].strip().lower() == title_norm:
+            errors.append(f"El titulo es identico a un post existente: '{p['title']}'.")
+
+    return errors
+
+
 def get_existing_posts() -> list[dict]:
     """Lista {title, url} de posts ya publicados, leyendo el <title> de cada HTML."""
     posts = []
@@ -156,8 +197,31 @@ def run() -> str:
             "anteriores listados arriba."
         )
 
-    raw = chat(system_prompt, user_prompt)
-    data = extract_json(raw)
+    max_attempts = 3
+    data = None
+    last_errors: list[str] = []
+    for attempt in range(1, max_attempts + 1):
+        prompt_for_attempt = user_prompt
+        if last_errors:
+            prompt_for_attempt = (
+                user_prompt
+                + "\n\nTu intento anterior tuvo estos problemas, corrigelos en esta nueva version:\n- "
+                + "\n- ".join(last_errors)
+            )
+        raw = chat(system_prompt, prompt_for_attempt)
+        candidate = extract_json(raw)
+        errors = validate_post(candidate, existing_posts)
+        if not errors:
+            data = candidate
+            break
+        print(f"Intento {attempt}/{max_attempts} no paso el control de calidad: {errors}")
+        last_errors = errors
+
+    if data is None:
+        raise RuntimeError(
+            f"El post no paso el control de calidad tras {max_attempts} intentos. "
+            f"Ultimos errores: {last_errors}"
+        )
 
     slug = unique_slug(slugify(data["slug"]) or slugify(data["title"]))
     published = date.today()
