@@ -19,6 +19,7 @@ FTP_PORT = int(os.getenv("FTP_PORT", "21"))
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "")
 INDEXNOW_KEY = os.getenv("INDEXNOW_KEY", "06c9938d6ad24c02aa980393f2393595")
+GOOGLE_SERVICE_ACCOUNT_JSON = os.getenv("GOOGLE_SERVICE_ACCOUNT_JSON", "")
 
 # --- Datos del negocio (definidos en .cursorrules, no deben cambiar solos) ---
 BUSINESS_NAME = "SWIFTYALATINO"
