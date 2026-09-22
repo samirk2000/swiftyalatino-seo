@@ -61,6 +61,7 @@ def run():
 
 def main():
     try:
+        git_utils.clean_working_tree()
         any_data = run()
     except Exception:
         error_trace = traceback.format_exc()

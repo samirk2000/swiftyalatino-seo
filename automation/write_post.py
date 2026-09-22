@@ -313,6 +313,9 @@ def run() -> str:
 
 def main():
     try:
+        # Limpia basura local del servidor (logs/, edits a medias) antes de
+        # generar, para que el push/rebase nunca se trabe otra vez.
+        git_utils.clean_working_tree()
         live_url, index_results = run()
     except Exception:
         error_trace = traceback.format_exc()
