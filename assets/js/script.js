@@ -3,6 +3,47 @@ document.addEventListener('DOMContentLoaded', function () {
   var yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+  var header = document.querySelector('.site-header');
+  var navBtn = document.querySelector('.nav-toggle');
+  if (header && navBtn) {
+    function setNav(open) {
+      header.classList.toggle('nav-open', open);
+      navBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    navBtn.addEventListener('click', function () {
+      setNav(!header.classList.contains('nav-open'));
+    });
+    header.querySelectorAll('.main-nav a').forEach(function (link) {
+      link.addEventListener('click', function () { setNav(false); });
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') setNav(false);
+    });
+  }
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var revealNodes = document.querySelectorAll('.reveal');
+  if (!reduceMotion && revealNodes.length && 'IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-in');
+        entry.target.classList.remove('reveal-pending');
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.14, rootMargin: '0px 0px -8% 0px' });
+    var viewHeight = window.innerHeight || 800;
+    revealNodes.forEach(function (el) {
+      var rect = el.getBoundingClientRect();
+      if (rect.top < viewHeight * 0.92) {
+        el.classList.add('is-in');
+      } else {
+        el.classList.add('reveal-pending');
+        observer.observe(el);
+      }
+    });
+  }
+
   // Tracking simple de clics en botones de WhatsApp (opcional, útil para medir conversiones)
   document.querySelectorAll('a[href*="wa.me"]').forEach(function (link) {
     link.addEventListener('click', function () {
@@ -66,10 +107,13 @@ document.addEventListener('DOMContentLoaded', function () {
       var exactUsd = el.getAttribute('data-usd');
       var value;
 
-      if (currency === 'USD' && exactUsd) {
+      if (currency === 'MXN') {
+        // El precio en pesos publicado en la página es la fuente de verdad.
+        value = mxn;
+      } else if (currency === 'USD' && exactUsd) {
         value = parseFloat(exactUsd);
       } else if (exactUsd) {
-        // Convertimos a partir del precio USD oficial (más preciso) cuando existe
+        // Otras monedas salen del USD oficial cuando existe.
         var usdValue = parseFloat(exactUsd);
         value = usdValue * (RATE_FROM_MXN[currency] / RATE_FROM_MXN.USD);
       } else {
