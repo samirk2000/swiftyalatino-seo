@@ -28,21 +28,19 @@
 <meta name="twitter:description" content="+3000 channels, +12000 movies, +5000 series. Order via WhatsApp.">
 <meta name="twitter:image" content="https://swiftyalatino.com/assets/img/og-swiftyalatino.jpg">
 
-<meta name="theme-color" content="#0b0f19">
+<meta name="theme-color" content="#07080d">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="48x48" href="/assets/img/favicon-48.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="/assets/css/style.css">
 <link rel="stylesheet" href="/assets/css/style.css">
 
 <style>
-  body{margin:0;font-family:'Poppins',Arial,sans-serif;background:#0b0f19;color:#fff}
-  html.light-theme body{background:#f5f7fb;color:#0b0f19}
-  .hero{min-height:70vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:24px}
-  .hero h1{font-size:clamp(1.8rem,4vw,3rem);margin:0 0 16px;line-height:1.2}
+  body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;background:#07080d;color:#f6f3ec}
+  html.light-theme body{background:#f6f4ef;color:#16140f}
+  .hero{padding:48px 20px 20px;text-align:center}
+  .hero h1{font-size:clamp(1.9rem,4.5vw,3.3rem);margin:0 0 14px;line-height:1.1;letter-spacing:-.035em;font-weight:700}
+  @media(min-width:960px){.hero{text-align:left;padding:64px 20px 36px}}
 </style>
 <script>
   (function(){
@@ -149,22 +147,25 @@ src="https://www.facebook.com/tr?id=2243888319789679&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
 </head>
-<body>
+<body class="home">
 
 <a class="skip-link" href="#planes">Skip to plans</a>
 
 <header class="site-header">
   <div class="container header-inner">
     <a href="/en/" class="logo">
-      <img src="/assets/img/logo.png" alt="SWIFTYALATINO - Best Latino IPTV" width="160" height="128" class="site-logo">
+      <img src="/assets/img/logo.webp" alt="SWIFTYALATINO - Best Latino IPTV" width="180" height="144" class="site-logo" fetchpriority="high">
     </a>
-    <nav class="main-nav" aria-label="Main navigation">
+    <nav id="site-nav" class="main-nav" aria-label="Main navigation">
       <a href="#planes">Plans</a>
       <a href="#paises">Coverage</a>
       <a href="#faq">FAQ</a>
       <a href="/blog/">Blog</a>
     </nav>
     <div class="header-tools">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
       <button id="theme-toggle" class="icon-btn" type="button" aria-label="Toggle dark/light mode" title="Dark/light mode">🌙</button>
       <a class="lang-switch" href="/" hreflang="es" title="Cambiar a Español">ES</a>
       <a class="btn btn-whatsapp header-cta" target="_blank" rel="noopener"
@@ -176,29 +177,49 @@ src="https://www.facebook.com/tr?id=2243888319789679&ev=PageView&noscript=1"
 </header>
 
 <main>
-  <!-- HERO -->
   <section class="hero">
-    <div class="container">
-      <img src="/assets/img/logo.png" alt="SWIFTYALATINO" width="200" height="160" class="hero-logo">
-      <h1>The Best Latino IPTV for Mexico, USA, Spain, Colombia & Peru</h1>
-      <p class="hero-sub">Over <strong>3000 channels</strong>, <strong>12000 movies</strong> and <strong>5000 series</strong> live. Trusted by thousands of customers in Mexico, the United States, Canada, Spain and across Latin America.</p>
-      <div class="hero-ctas">
-        <a class="btn btn-whatsapp btn-lg" target="_blank" rel="noopener"
-           href="https://wa.me/message/RUQZ63ESW76VB1?text=Hi%2C%20I%27d%20like%20the%20LATINO%20PREMIUM%20plan%20for%201%20month">
-          📲 Order via WhatsApp
-        </a>
-        <a class="btn btn-outline btn-lg" href="#planes">See plans & pricing</a>
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="kicker"><span class="live"><i></i> In service</span></p>
+        <h1>The Best Latino IPTV for Mexico, USA, Spain, Colombia & Peru</h1>
+        <p class="hero-sub">Over <strong>3000 channels</strong>, <strong>12000 movies</strong> and <strong>5000 series</strong> live. Trusted by thousands of customers in Mexico, the United States, Canada, Spain and across Latin America.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-whatsapp btn-lg" target="_blank" rel="noopener"
+             href="https://wa.me/message/RUQZ63ESW76VB1?text=Hi%2C%20I%27d%20like%20the%20LATINO%20PREMIUM%20plan%20for%201%20month">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="currentColor"><path d="M12.04 2C6.58 2 2.15 6.4 2.15 11.83c0 1.74.46 3.44 1.34 4.94L2 22l5.39-1.41a10.1 10.1 0 0 0 4.65 1.12h.01c5.46 0 9.89-4.4 9.89-9.83C21.94 6.4 17.5 2 12.04 2zm5.76 13.89c-.24.68-1.4 1.3-1.94 1.38-.5.08-1.12.11-1.81-.11-.42-.14-.95-.31-1.64-.6-2.88-1.24-4.76-4.14-4.9-4.33-.14-.19-1.16-1.54-1.16-2.94s.73-2.08 1-2.37c.24-.28.64-.41 1.02-.41.12 0 .23 0 .33.01.3.01.44.03.64.49.24.58.82 2 .89 2.15.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.37-.42.49-.14.14-.28.29-.12.56.16.28.72 1.18 1.54 1.91 1.06.94 1.95 1.23 2.23 1.37.28.14.44.12.6-.07.16-.19.69-.8.88-1.08.19-.28.37-.23.62-.14.26.09 1.62.76 1.9.9.28.14.46.21.53.33.07.12.07.68-.17 1.36z"/></svg>
+            Order via WhatsApp
+          </a>
+          <a class="btn btn-outline btn-lg" href="#planes">See plans & pricing</a>
+        </div>
+        <ul class="trust-badges">
+          <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Instant activation</li>
+          <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>24/7 WhatsApp support</li>
+          <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Mexico, USA, Canada, Spain & Latin America</li>
+        </ul>
       </div>
-      <ul class="trust-badges">
-        <li>✅ Instant activation</li>
-        <li>✅ 24/7 WhatsApp support</li>
-        <li>✅ Serving Mexico, USA, Canada, Spain & Latin America</li>
-      </ul>
+      <aside class="stage" aria-hidden="true">
+        <div class="stage-card">
+          <div class="stage-bar">
+            <span class="live"><i></i> Live</span>
+            <span class="stage-tag">HD / FHD</span>
+          </div>
+          <div class="stage-list">
+            <div class="stage-row"><span class="ch">01</span><span>Sports</span><em>HD</em></div>
+            <div class="stage-row"><span class="ch">02</span><span>Movies</span><em>FHD</em></div>
+            <div class="stage-row"><span class="ch">03</span><span>Series</span><em>HD</em></div>
+            <div class="stage-row"><span class="ch">04</span><span>News</span><em>HD</em></div>
+            <div class="stage-row"><span class="ch">05</span><span>Kids</span><em>HD</em></div>
+          </div>
+          <div class="stage-foot">
+            <span>3 connections</span>
+            <span>Ready in minutes</span>
+          </div>
+        </div>
+      </aside>
     </div>
   </section>
 
-  <!-- STATS -->
-  <section class="section stats-section">
+  <section class="section stats-section reveal">
     <div class="container">
       <div class="grid grid-4 stats-grid">
         <div class="stat"><span class="stat-num">+5</span><span class="stat-label">years of experience</span></div>
@@ -206,37 +227,49 @@ src="https://www.facebook.com/tr?id=2243888319789679&ev=PageView&noscript=1"
         <div class="stat"><span class="stat-num">10</span><span class="stat-label">countries covered</span></div>
         <div class="stat"><span class="stat-num">24/7</span><span class="stat-label">WhatsApp support</span></div>
       </div>
-    </div>
-  </section>
-
-  <!-- BENEFITS -->
-  <section class="section" id="beneficios">
-    <div class="container">
-      <h2>Why we're the best Latino IPTV service</h2>
-      <div class="grid grid-4">
-        <div class="card">
-          <h3>📡 3000 to 8000 Channels</h3>
-          <p>Sports, novelas, news, kids, movies and local channels from Mexico, USA, Canada, Spain and Latin America.</p>
-        </div>
-        <div class="card">
-          <h3>🎬 Thousands of Movies & Series</h3>
-          <p>On-demand catalog with new releases and classics, updated constantly.</p>
-        </div>
-        <div class="card">
-          <h3>⚡ Stability & HD/FHD Quality</h3>
-          <p>Optimized servers for stable streaming on all your devices.</p>
-        </div>
-        <div class="card">
-          <h3>💬 Real WhatsApp Support</h3>
-          <p>Personalized assistance before and after your purchase — no complicated bots.</p>
-        </div>
+      <div class="device-row" aria-label="Compatible devices">
+        <span>Smart TV</span>
+        <span>Android</span>
+        <span>iPhone</span>
+        <span>Tablet</span>
+        <span>Computer</span>
       </div>
     </div>
   </section>
 
-  <!-- PLANS -->
-  <section class="section section-alt" id="planes">
+  <section class="section reveal" id="beneficios">
     <div class="container">
+      <p class="kicker center">Why SWIFTYALATINO</p>
+      <h2>Why we're the best Latino IPTV service</h2>
+      <p class="section-sub">Channels, movies and series, with the same WhatsApp support before and after you order.</p>
+      <div class="grid grid-4">
+        <article class="card">
+          <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
+          <h3>3000 to 8000 channels</h3>
+          <p>Sports, novelas, news, kids, movies and local channels from Mexico, USA, Canada, Spain and Latin America.</p>
+        </article>
+        <article class="card">
+          <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/></svg></span>
+          <h3>Thousands of movies and series</h3>
+          <p>On-demand catalog with new releases and classics, updated constantly.</p>
+        </article>
+        <article class="card">
+          <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg></span>
+          <h3>Stability and HD/FHD quality</h3>
+          <p>Optimized servers for stable streaming on all your devices.</p>
+        </article>
+        <article class="card">
+          <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8z"/></svg></span>
+          <h3>Real WhatsApp support</h3>
+          <p>Personalized assistance before and after your purchase — no complicated bots.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt reveal" id="planes">
+    <div class="container">
+      <p class="kicker center">Prices in MXN</p>
       <h2>IPTV Plans: LATINO PREMIUM & MEGA TOTAL</h2>
       <p class="section-sub">Pick the plan that fits you best and activate it today via WhatsApp.</p>
 
@@ -255,7 +288,8 @@ src="https://www.facebook.com/tr?id=2243888319789679&ev=PageView&noscript=1"
 
       <div class="grid grid-2">
         <!-- LATINO PREMIUM -->
-        <div class="plan-card">
+        <div class="plan-card featured">
+          <p class="plan-kicker">Main plan</p>
           <h3>LATINO PREMIUM</h3>
           <p class="plan-desc">+3000 channels · +12,000 movies · +5,000 series · 3 simultaneous connections</p>
           <table class="plan-table">
@@ -277,7 +311,7 @@ src="https://www.facebook.com/tr?id=2243888319789679&ev=PageView&noscript=1"
                 <td><a class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener" href="https://wa.me/message/RUQZ63ESW76VB1?text=Hi%2C%20I%27d%20like%20the%20LATINO%20PREMIUM%20plan%20for%206%20months">Order</a></td>
               </tr>
               <tr class="highlight">
-                <td>12 Months 💥</td>
+                <td>12 Months <span class="badge">Best value</span></td>
                 <td><span class="price" data-mxn="1299">$1,299 MXN</span></td>
                 <td><a class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener" href="https://wa.me/message/RUQZ63ESW76VB1?text=Hi%2C%20I%27d%20like%20the%20LATINO%20PREMIUM%20plan%20for%2012%20months">Order</a></td>
               </tr>
@@ -287,6 +321,7 @@ src="https://www.facebook.com/tr?id=2243888319789679&ev=PageView&noscript=1"
 
         <!-- MEGA TOTAL -->
         <div class="plan-card">
+          <p class="plan-kicker">More channels</p>
           <h3>MEGA TOTAL</h3>
           <p class="plan-desc">+8000 channels · 3 simultaneous connections</p>
           <table class="plan-table">
@@ -313,7 +348,7 @@ src="https://www.facebook.com/tr?id=2243888319789679&ev=PageView&noscript=1"
                 <td><a class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener" href="https://wa.me/message/RUQZ63ESW76VB1?text=Hi%2C%20I%27d%20like%20the%20MEGA%20TOTAL%20plan%20for%2012%20months">Order</a></td>
               </tr>
               <tr class="highlight">
-                <td>16 Months 💥</td>
+                <td>16 Months <span class="badge">Best value</span></td>
                 <td><span class="price" data-mxn="1520" data-usd="91">$91 USD</span></td>
                 <td><a class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener" href="https://wa.me/message/RUQZ63ESW76VB1?text=Hi%2C%20I%27d%20like%20the%20MEGA%20TOTAL%20plan%20for%2016%20months">Order</a></td>
               </tr>
@@ -322,13 +357,19 @@ src="https://www.facebook.com/tr?id=2243888319789679&ev=PageView&noscript=1"
         </div>
       </div>
 
-      <p class="pay-methods">💳 In Mexico: bank transfer & OXXO deposit. Elsewhere: PayPal or a private payment link sent only via WhatsApp.</p>
+      <p class="pay-methods">In Mexico: bank transfer and OXXO deposit. Elsewhere: PayPal or a private payment link sent only via WhatsApp.</p>
+      <div class="pay-row" aria-label="Payment methods">
+        <span>Bank transfer</span>
+        <span>OXXO</span>
+        <span>PayPal</span>
+        <span>Private link via WhatsApp</span>
+      </div>
     </div>
   </section>
 
-  <!-- COVERAGE -->
-  <section class="section" id="paises">
+  <section class="section reveal" id="paises">
     <div class="container">
+      <p class="kicker center">10 countries</p>
       <h2>International IPTV Coverage</h2>
       <p class="section-sub">Available in Mexico, the United States, Canada, Spain and across Latin America.</p>
 
@@ -385,59 +426,59 @@ src="https://www.facebook.com/tr?id=2243888319789679&ev=PageView&noscript=1"
     </div>
   </section>
 
-  <!-- HOW TO BUY -->
-  <section class="section section-alt" id="comprar">
+  <section class="section section-alt reveal" id="comprar">
     <div class="container">
+      <p class="kicker center">Straightforward</p>
       <h2>How to buy IPTV from SWIFTYALATINO</h2>
       <ol class="steps">
-        <li><strong>Choose your plan:</strong> LATINO PREMIUM or MEGA TOTAL, based on your needs.</li>
-        <li><strong>Message us on WhatsApp:</strong> we'll confirm availability and payment method for your country.</li>
-        <li><strong>Make your payment:</strong> bank transfer/OXXO in Mexico; PayPal or a private link via WhatsApp elsewhere.</li>
-        <li><strong>Instant activation:</strong> start enjoying your IPTV service in minutes.</li>
+        <li><div><strong>Choose your plan.</strong> LATINO PREMIUM or MEGA TOTAL, based on your needs.</div></li>
+        <li><div><strong>Message us on WhatsApp.</strong> We'll confirm availability and the payment method for your country.</div></li>
+        <li><div><strong>Make your payment.</strong> Bank transfer or OXXO in Mexico; PayPal or a private link via WhatsApp elsewhere.</div></li>
+        <li><div><strong>Instant activation.</strong> Start enjoying your IPTV service in minutes.</div></li>
       </ol>
       <div class="cta-center">
         <a class="btn btn-whatsapp btn-lg" target="_blank" rel="noopener"
            href="https://wa.me/message/RUQZ63ESW76VB1?text=Hi%2C%20I%27d%20like%20to%20buy%20IPTV%2C%20can%20you%20give%20me%20info%3F">
-          📲 Buy IPTV now via WhatsApp
+          Buy IPTV now via WhatsApp
         </a>
-        <p class="phone-alt">📞 You can also call/WhatsApp <a href="tel:+526622684690">+52 1 662 268 4690</a></p>
+        <p class="phone-alt">You can also call or message <a href="tel:+526622684690">+52 1 662 268 4690</a></p>
       </div>
     </div>
   </section>
 
-  <!-- TESTIMONIALS -->
-  <section class="section section-alt" id="testimonios">
+  <section class="section reveal" id="testimonios">
     <div class="container">
+      <p class="kicker center">Customers</p>
       <h2>What our customers say</h2>
       <p class="section-sub">Thousands of people in Mexico, the USA, Spain and Latin America already enjoy SWIFTYALATINO.</p>
-      <div class="grid grid-4">
-        <div class="card testimonial">
-          <p class="stars">⭐⭐⭐⭐⭐</p>
-          <p>"Excellent service, the signal never drops and they have every channel I was looking for. WhatsApp support replies super fast."</p>
-          <p class="testimonial-author">— Carlos R., Mexico</p>
-        </div>
-        <div class="card testimonial">
-          <p class="stars">⭐⭐⭐⭐⭐</p>
-          <p>"I live in Texas and can finally watch my Mexican channels without issues. Activation was instant after payment."</p>
-          <p class="testimonial-author">— Miguel A., USA</p>
-        </div>
-        <div class="card testimonial">
-          <p class="stars">⭐⭐⭐⭐⭐</p>
-          <p>"Great picture quality and the movie catalog is huge. I fully recommend it."</p>
-          <p class="testimonial-author">— Laura G., Spain</p>
-        </div>
-        <div class="card testimonial">
-          <p class="stars">⭐⭐⭐⭐⭐</p>
-          <p>"I got the MEGA TOTAL plan and it's been worth every penny. Personalized support, no hassle."</p>
-          <p class="testimonial-author">— Andrea P., Colombia</p>
-        </div>
+      <div class="grid grid-2">
+        <figure class="card testimonial">
+          <p class="stars" aria-label="5 out of 5"><span aria-hidden="true">★★★★★</span></p>
+          <blockquote class="quote">Excellent service, the signal never drops and they have every channel I was looking for. WhatsApp support replies super fast.</blockquote>
+          <figcaption class="testimonial-author"><span class="avatar" aria-hidden="true">CR</span><span class="author-meta">Carlos R.<span>Mexico</span></span></figcaption>
+        </figure>
+        <figure class="card testimonial">
+          <p class="stars" aria-label="5 out of 5"><span aria-hidden="true">★★★★★</span></p>
+          <blockquote class="quote">I live in Texas and can finally watch my Mexican channels without issues. Activation was instant after payment.</blockquote>
+          <figcaption class="testimonial-author"><span class="avatar" aria-hidden="true">MA</span><span class="author-meta">Miguel A.<span>USA</span></span></figcaption>
+        </figure>
+        <figure class="card testimonial">
+          <p class="stars" aria-label="5 out of 5"><span aria-hidden="true">★★★★★</span></p>
+          <blockquote class="quote">Great picture quality and the movie catalog is huge. I fully recommend it.</blockquote>
+          <figcaption class="testimonial-author"><span class="avatar" aria-hidden="true">LG</span><span class="author-meta">Laura G.<span>Spain</span></span></figcaption>
+        </figure>
+        <figure class="card testimonial">
+          <p class="stars" aria-label="5 out of 5"><span aria-hidden="true">★★★★★</span></p>
+          <blockquote class="quote">I got the MEGA TOTAL plan and it's been worth every penny. Personalized support, no hassle.</blockquote>
+          <figcaption class="testimonial-author"><span class="avatar" aria-hidden="true">AP</span><span class="author-meta">Andrea P.<span>Colombia</span></span></figcaption>
+        </figure>
       </div>
     </div>
   </section>
 
-  <!-- FAQ -->
-  <section class="section" id="faq">
+  <section class="section section-alt reveal" id="faq">
     <div class="container">
+      <p class="kicker center">Before you order</p>
       <h2>Frequently asked questions</h2>
       <div class="faq-list">
         <details>
@@ -463,22 +504,39 @@ src="https://www.facebook.com/tr?id=2243888319789679&ev=PageView&noscript=1"
       </div>
     </div>
   </section>
+  <section class="cta-band reveal">
+    <div class="container">
+      <div class="cta-panel">
+        <p class="kicker">Whenever you're ready</p>
+        <h2>Activate your Latino IPTV today</h2>
+        <p>Message us on WhatsApp, confirm the plan and the payment method for your country. Activation takes minutes.</p>
+        <a class="btn btn-whatsapp btn-lg" target="_blank" rel="noopener"
+           href="https://wa.me/message/RUQZ63ESW76VB1?text=Hi%2C%20I%27d%20like%20the%20LATINO%20PREMIUM%20plan%20for%201%20month">
+          I want the LATINO PREMIUM plan
+        </a>
+      </div>
+    </div>
+  </section>
 </main>
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <img src="/assets/img/logo.png" alt="SWIFTYALATINO" width="120" height="96" class="footer-logo">
+    <img src="/assets/img/logo.webp" alt="SWIFTYALATINO" width="180" height="144" class="footer-logo" loading="lazy" decoding="async">
     <p>&copy; <span id="year"></span> SWIFTYALATINO. All rights reserved.</p>
-    <p>Contact: <a href="tel:+526622684690">+52 1 662 268 4690</a> ·
-       <a target="_blank" rel="noopener" href="https://wa.me/message/RUQZ63ESW76VB1">WhatsApp</a> ·
-       <a href="/" hreflang="es">Español</a></p>
-    <p><a href="/blog/">Blog</a></p>
+    <p>Contact: <a href="tel:+526622684690">+52 1 662 268 4690</a></p>
+    <nav class="footer-links" aria-label="Footer">
+      <a target="_blank" rel="noopener" href="https://wa.me/message/RUQZ63ESW76VB1">WhatsApp</a>
+      <a href="/blog/">Blog</a>
+      <a href="/" hreflang="es">Español</a>
+      <a href="#planes">Plans</a>
+      <a href="#faq">FAQ</a>
+    </nav>
   </div>
 </footer>
 
 <a class="whatsapp-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"
    href="https://wa.me/message/RUQZ63ESW76VB1?text=Hi%2C%20I%27d%20like%20info%20about%20the%20IPTV%20plans">
-  💬
+  <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" fill="currentColor"><path d="M12.04 2C6.58 2 2.15 6.4 2.15 11.83c0 1.74.46 3.44 1.34 4.94L2 22l5.39-1.41a10.1 10.1 0 0 0 4.65 1.12h.01c5.46 0 9.89-4.4 9.89-9.83C21.94 6.4 17.5 2 12.04 2zm5.76 13.89c-.24.68-1.4 1.3-1.94 1.38-.5.08-1.12.11-1.81-.11-.42-.14-.95-.31-1.64-.6-2.88-1.24-4.76-4.14-4.9-4.33-.14-.19-1.16-1.54-1.16-2.94s.73-2.08 1-2.37c.24-.28.64-.41 1.02-.41.12 0 .23 0 .33.01.3.01.44.03.64.49.24.58.82 2 .89 2.15.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.37-.42.49-.14.14-.28.29-.12.56.16.28.72 1.18 1.54 1.91 1.06.94 1.95 1.23 2.23 1.37.28.14.44.12.6-.07.16-.19.69-.8.88-1.08.19-.28.37-.23.62-.14.26.09 1.62.76 1.9.9.28.14.46.21.53.33.07.12.07.68-.17 1.36z"/></svg>
 </a>
 
 <script src="/assets/js/script.js" defer></script>
