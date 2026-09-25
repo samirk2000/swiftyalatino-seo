@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://swiftyalatino.com/sitemap.xml
+Sitemap: https://swiftyalatino.com/guias/sitemap.xml

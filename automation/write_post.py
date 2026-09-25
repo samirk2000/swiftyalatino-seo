@@ -270,6 +270,9 @@ def run() -> str:
 
     site_updater.add_post_to_blog_index(slug, data["title"], data["summary"], published)
     site_updater.add_post_to_sitemap(slug, published)
+    # Antes de commitear y de subir por FTP: el sitemap del hosting tiene
+    # URLs (/guias/ y otras) que no viven en el repo. Hay que conservarlas.
+    sitemap_ready = site_updater.merge_live_sitemap_into_local()
 
     changed = git_utils.commit_and_push(
         message=f"content: nuevo post de blog {published.isoformat()} - {slug}",
@@ -290,6 +293,9 @@ def run() -> str:
         image_path: f"assets/img/blog/{slug}.jpg",
         config.BASE_DIR / f"{config.INDEXNOW_KEY}.txt": f"{config.INDEXNOW_KEY}.txt",
     }
+    if not sitemap_ready:
+        # No pisar el sitemap del servidor con una copia que no tiene /guias/.
+        deploy_files.pop(config.SITEMAP_PATH, None)
 
     # Deploy directo a Hostinger (no depender del Git Deploy, que ha fallado antes)
     ftp_deploy.deploy(deploy_files)

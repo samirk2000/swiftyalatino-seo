@@ -23,3 +23,6 @@ logs/
 # Imagenes OG generadas por el bot (se suben por FTP; se versionan solo cuando el bot las publica)
 # assets/img/blog/*.jpg
 logs/
+
+# Seccion programmatic SEO desplegada directo al hosting, fuera de este repo
+guias/
