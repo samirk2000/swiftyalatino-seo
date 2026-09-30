@@ -33,7 +33,7 @@ swiftyalatino-seo/
 **LATINO PREMIUM** — 3000 canales, 12000 pelis, 5000 series, 3 conexiones
 - 1 Mes: $150 MXN · 3 Meses: $390 MXN · 6 Meses: $750 MXN · 12 Meses: $1,299 MXN
 
-**MEGA TOTAL** — 8000 canales, 3 conexiones
+**MEGA TOTAL** — 7,700 canales, 44,400 pelis, 13,983 series, 3 conexiones (servicio distinto a LATINO PREMIUM: se compra uno u otro)
 - 1 Mes: $160 MXN · 4 Meses: $480 MXN · 8 Meses: $860 MXN · 12 Meses: $1,240 MXN · 16 Meses: $1,520 MXN
 
 Todos los botones de compra abren WhatsApp (`https://wa.me/message/RUQZ63ESW76VB1`) con el mensaje prellenado `"Hola, quiero el plan [PLAN] de [X] meses"`. **No se incluye ningún link de pago, m3u, Xtream ni panel en la web**, conforme a las reglas del proyecto.
