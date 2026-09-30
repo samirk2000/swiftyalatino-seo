@@ -137,6 +137,11 @@ def validate_post(data: dict, existing_posts: list[dict]) -> list[str]:
         (r"checkout\.stripe\.com", "link de Stripe checkout"),
         (r"paypal\.com/(cgi-bin|paypalme|ncp)", "link de PayPal"),
         (r"https?://[^\s\"']+\.(m3u8?|ts)\b", "URL de stream directo"),
+        # Los dos planes son servicios DISTINTOS (se compra uno u otro): nada de respaldo/redundancia entre servidores
+        (r"(servidor(es)?|canal(es)?|señal|plan(es)?)\s+(de\s+)?respaldo|respaldo\s+(del?|entre)\s+(servidor|señal|plan)", "servidor/canal de respaldo (los planes son servicios distintos)"),
+        (r"si\s+(uno|el\s+servidor|un\s+servidor|la\s+señal\s+principal)\s+(se\s+)?(cae|falla)", "fallback 'si uno se cae/falla'"),
+        (r"doble\s+servidor|dos\s+servidores|ambos\s+servidores|los\s+dos\s+servidores|servidor(es)?\s+redundantes?|redundancia|fallback|servidor\s+altern[oa]|segundo\s+servidor", "redundancia/doble servidor"),
+        (r"\b8,?000\s+canales|\b8000\+", "cifra vieja de MEGA TOTAL (son 7,700 canales)"),
     ]
     blob = f"{data.get('body_html','')} {data.get('summary','')} {data.get('meta_description','')}".lower()
     for pattern, label in forbidden:

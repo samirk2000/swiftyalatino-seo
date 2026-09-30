@@ -32,8 +32,12 @@ PLANS_TEXT = """
 Plan LATINO PREMIUM: 3000 canales, 12000 peliculas, 5000 series, 3 conexiones.
 Precios (MXN): 1 mes $150, 3 meses $390, 6 meses $750, 12 meses $1299.
 
-Plan MEGA TOTAL: 8000 canales, 3 conexiones.
+Plan MEGA TOTAL: 7700 canales, 44400 peliculas, 13983 series, 3 conexiones.
 Precios (MXN): 1 mes $160, 4 meses $480, 8 meses $860, 12 meses $1240, 16 meses $1520.
+
+Son dos servicios (servidores) DISTINTOS: el cliente compra uno u otro, no los dos juntos.
+NUNCA digas que uno sirve de respaldo del otro, que "si uno se cae" se usa el otro, que hay
+"doble servidor" o servidores de respaldo/redundantes, ni que un plan incluye dos servidores.
 
 Pagos: en Mexico transferencia bancaria u OXXO. Fuera de Mexico, PayPal o un
 link privado de pago enviado SOLO por WhatsApp. NUNCA se publican URLs de pago,
