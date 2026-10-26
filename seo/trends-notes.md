@@ -1,39 +1,39 @@
-# Notas de tendencias — semana del 2026-10-19
+# Notas de tendencias — semana del 2026-10-26
 
 ## Mexico
-- futbol hoy
-- futbol americano
 - futbol tv
+- futbol hoy
 - futbol mx
-- futbol mexicano
+- futbol en vivo
+- futbol liga mx
 - tabla liga mx
 - la liga mx
-- la liga
 - liga mx hoy
-- liga mx partidos
+- partidos liga mx
+- posiciones liga mx
 
 ## España
 - futbol hoy
 - madrid futbol
-- liga futbol
+- ver futbol
 - futbol tv
-- futbol sala
-- la liga mx
+- liga futbol
 - la liga
+- la liga mx
+- liga mx tabla
 - partidos liga mx
-- tabla liga mx
-- posiciones liga mx
+- liga mx posiciones
 
 ## Estados Unidos (hispanos)
-- futbol hoy
 - futbol mexicano
-- futbol resultados
+- futbol hoy
+- barcelona
 - futbol tv
-- futbol americano
-- la liga
+- futbol resultados
 - la liga mx
+- la liga
 - liga mx tabla
 - liga mx schedule
 - liga mx standings
 
-_Generado automaticamente el 2026-10-19T08:00:16_
+_Generado automaticamente el 2026-10-26T08:00:17_
