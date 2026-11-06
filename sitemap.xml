@@ -944,4 +944,46 @@
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://swiftyalatino.com/blog/guia-futbol-en-vivo-2026-ligas-torneos-sin-cortes.html</loc>
+    <lastmod>2026-11-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://swiftyalatino.com/guias/iptv-canales-estados-unidos/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://swiftyalatino.com/guias/ver-leon-vs-guadalajara-en-tv-2026-11-08/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://swiftyalatino.com/guias/ver-colombia-vs-chile-en-tv-2026-11-13/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://swiftyalatino.com/guias/ver-queretaro-vs-monterrey-en-tv-2026-11-14/</loc>
+    <lastmod>2026-11-05</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://swiftyalatino.com/guias/ver-argentina-vs-uruguay-en-tv-2026-11-13/</loc>
+    <lastmod>2026-11-05</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://swiftyalatino.com/guias/ver-jamaica-vs-mexico-en-tv-2026-11-14/</loc>
+    <lastmod>2026-11-05</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
