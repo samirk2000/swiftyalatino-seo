@@ -1004,4 +1004,34 @@
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://swiftyalatino.com/blog/latino-premium-vs-mega-total-cual-elegir-2026.html</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://swiftyalatino.com/guias/ver-argentina-vs-costa-rica-en-tv-2026-11-17/</loc>
+    <lastmod>2026-11-10</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://swiftyalatino.com/guias/ver-pachuca-vs-toluca-en-tv-2026-11-21/</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://swiftyalatino.com/guias/ver-pumas-unam-vs-monterrey-en-tv-2026-11-21/</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://swiftyalatino.com/guias/ver-tigres-uanl-vs-america-en-tv-2026-11-21/</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
