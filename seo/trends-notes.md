@@ -1,39 +1,39 @@
-# Notas de tendencias — semana del 2026-11-16
+# Notas de tendencias — semana del 2026-11-23
 
 ## Mexico
 - futbol hoy
 - futbol americano
+- futbol mx
+- futbol mexicano
 - mexico futbol
-- mexico
-- tenis futbol
-- tabla liga mx
-- liga mx femenil
-- liga femenil
-- la liga
+- liga mx tabla
+- liga mx posiciones
 - la liga mx
+- posiciones de liga mx
+- partidos liga mx
 
 ## España
 - futbol hoy
-- españa
-- españa futbol
 - futbol sala
 - liga futbol
+- barcelona futbol
+- madrid futbol
 - la liga
-- liga mx femenil
-- tabla liga mx
-- liga mx hoy
+- la liga mx
+- liga mx tabla
 - posiciones de liga mx
+- liga mx posiciones
 
 ## Estados Unidos (hispanos)
-- futbol hoy
 - futbol mexicano
-- futbol resultados
-- mexico futbol
-- futbol americano
-- liga femenil mx
-- la liga mx
+- futbol hoy
+- resultados futbol
+- futbol mexico
+- futbol mx
 - la liga
-- tabla liga mx
+- la liga mx
+- liga mx tabla
+- liga mx standings
 - liga mx schedule
 
-_Generado automaticamente el 2026-11-16T08:00:16_
+_Generado automaticamente el 2026-11-23T08:00:16_
